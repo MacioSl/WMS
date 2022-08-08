@@ -1,4 +1,4 @@
-# warehousemanagementsystem
+# Warehouse Management System
 
 ## Project setup
 ```
