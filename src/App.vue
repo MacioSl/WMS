@@ -4,7 +4,7 @@
     <SideBar />
   </div>
   <div class="main">
-
+    <ProductTable />
   </div>
 </template>
 
@@ -12,11 +12,12 @@
 import SideBar from "@/components/SideBar.vue";
 import HeaderBar from "@/components/Header";
 
-
+import ProductTable from "@/components/ProductTable";
 
 export default {
   name: 'App',
   components: {
+    ProductTable,
     HeaderBar,
     SideBar,
   }
@@ -36,11 +37,13 @@ export default {
 float: left;
 }
 .main{
+  display: inline-block;
   position: absolute;
   float: left;
   top: 7vh;
   left: 10%;
-  min-height: 120vh;
+  right: 1%;
   color: black;
+  margin: 0;
 }
 </style>
