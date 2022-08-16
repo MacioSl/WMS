@@ -2,7 +2,6 @@
   <div class="cont">
     <div class="flex-container">
       <div>List</div>
-      <div>Orders</div>
       <div>Inbound</div>
       <div>Outbound</div>
     </div>
@@ -37,7 +36,6 @@ export default {
 .flex-container{
   display: flex;
   flex-direction: column;
-  text-align: left;
   float: left;
 }
 

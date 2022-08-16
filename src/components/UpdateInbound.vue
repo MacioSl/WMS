@@ -1,38 +1,24 @@
 <template>
-  <form @submit.prevent="updateProduct">
+  <form @submit.prevent="updateInbound">
     <input
         v-model="uName"
         type="text"
         placeholder="Name"
-        :disabled="!enable"
-    />
+        :disabled="!enable"/>
     <input
-        v-model="uSerial"
+        v-model="uOrder"
         type="text"
-        placeholder="Serial"
-        :disabled="!enable"
-    />
+        placeholder="Order"
+        :disabled="!enable"/>
     <input
-        v-model="uLot"
+        v-model="uDesc"
         type="text"
-        placeholder="Lot"
-        :disabled="!enable"
-    />
-    <input
-        v-model="uQuantity"
-        type="text"
-        placeholder="Quantity"
-        :disabled="!enable"
-    />
-    <input
-        v-model="uPrice"
-        type="text"
-        placeholder="Price"
-        :disabled="!enable"
-    />
+        placeholder="Description"
+        :disabled="!enable"/>
+
     <button
         class="inputButton"
-        :disabled="!uSerial && !uName || !uQuantity || !uLot || !enable"
+        :disabled="!enable"
     >
       &#10003;
     </button>
@@ -40,7 +26,7 @@
         class="resetButton"
         type="reset"
         @click="hideInputs"
-        :disabled="!uSerial && !uName && !uQuantity && !uLot && !uPrice || !enable"
+        :disabled="!uOrder && !uName || !enable"
     >
       &#9850;
     </button>
@@ -58,10 +44,8 @@ import {doc, updateDoc} from "firebase/firestore";
 //Declare constants
 const uID = ref('')
 const uName = ref('')
-const uSerial = ref('')
-const uLot = ref('')
-const uQuantity = ref('')
-const uPrice = ref('')
+const uOrder = ref('')
+const uDesc = ref('')
 const emit = defineEmits(['update:enable'])
 
 //Declare props - get data from parent
@@ -76,13 +60,11 @@ const props = defineProps({
 //Declare and define functions
 
 //Watch for prop data change and update references
-watch(() => props.modelValue, (n,o) =>{
-  uID.value = n.id;
-  uName.value = n.name;
-  uSerial.value = n.serial;
-  uLot.value = n.lot;
-  uQuantity.value = n.quantity;
-  uPrice.value = n.price;
+watch(() => props.modelValue, (n,o) => {
+  uID.value = n.id,
+  uName.value = n.name,
+  uOrder.value = n.order,
+  uDesc.value = n.desc
 })
 
 //Emit value change
@@ -91,29 +73,24 @@ const hideInputs = () => {
 }
 
 //Update the document
-const updateProduct = () => {
-  updateDoc(doc(db, "products", uID.value), {
+const updateInbound = () => {
+  updateDoc(doc(db, "inbound", uID.value), {
     name: uName.value,
-    serial: uSerial.value,
-    lot: uLot.value,
-    quantity: uQuantity.value,
-    price: uPrice.value,
+    order: uOrder.value,
+    desc: uDesc.value,
   });
-  uID.value = ""
-  uName.value = ""
-  uSerial.value = ""
-  uLot.value = ""
-  uQuantity.value = ""
-  uPrice.value = ""
+  uID.value = "",
+  uName.value = "",
+  uOrder.value = "",
+  uDesc.value = ""
   hideInputs()
 }
 
 </script>
 
 <script>
-//Export name
 export default {
-  name: "UpdateProduct",
+  name: "UpdateInbound"
 }
 </script>
 

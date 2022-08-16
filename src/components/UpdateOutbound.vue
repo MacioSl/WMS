@@ -1,38 +1,56 @@
 <template>
   <form @submit.prevent="updateProduct">
     <input
+        v-model="uSurname"
+        type="text"
+        placeholder="Surname"
+        :disabled="!enable"
+    />
+    <input
         v-model="uName"
         type="text"
         placeholder="Name"
         :disabled="!enable"
     />
     <input
-        v-model="uSerial"
+        v-model="uOrder"
         type="text"
-        placeholder="Serial"
+        placeholder="Order"
         :disabled="!enable"
     />
     <input
-        v-model="uLot"
+        v-model="uCountry"
         type="text"
-        placeholder="Lot"
+        placeholder="Country"
         :disabled="!enable"
     />
     <input
-        v-model="uQuantity"
+        v-model="uTown"
         type="text"
-        placeholder="Quantity"
+        placeholder="Town"
         :disabled="!enable"
     />
     <input
-        v-model="uPrice"
+        v-model="uAddr"
         type="text"
-        placeholder="Price"
+        placeholder="Address"
+        :disabled="!enable"
+    />
+    <input
+        v-model="uZip"
+        type="text"
+        placeholder="Zip Code"
+        :disabled="!enable"
+    />
+    <input
+        v-model="uDesc"
+        type="text"
+        placeholder="Description"
         :disabled="!enable"
     />
     <button
         class="inputButton"
-        :disabled="!uSerial && !uName || !uQuantity || !uLot || !enable"
+        :disabled="!enable"
     >
       &#10003;
     </button>
@@ -40,7 +58,7 @@
         class="resetButton"
         type="reset"
         @click="hideInputs"
-        :disabled="!uSerial && !uName && !uQuantity && !uLot && !uPrice || !enable"
+        :disabled="!enable"
     >
       &#9850;
     </button>
@@ -56,12 +74,15 @@ import {ref, watch} from "vue";
 import {doc, updateDoc} from "firebase/firestore";
 
 //Declare constants
-const uID = ref('')
-const uName = ref('')
-const uSerial = ref('')
-const uLot = ref('')
-const uQuantity = ref('')
-const uPrice = ref('')
+const uID = ref("");
+const uName = ref("");
+const uOrder = ref("");
+const uZip = ref("");
+const uAddr = ref("");
+const uCountry = ref("");
+const uTown = ref("");
+const uSurname = ref("");
+const uDesc = ref("");
 const emit = defineEmits(['update:enable'])
 
 //Declare props - get data from parent
@@ -79,10 +100,13 @@ const props = defineProps({
 watch(() => props.modelValue, (n,o) =>{
   uID.value = n.id;
   uName.value = n.name;
-  uSerial.value = n.serial;
-  uLot.value = n.lot;
-  uQuantity.value = n.quantity;
-  uPrice.value = n.price;
+  uOrder.value = n.order;
+  uZip.value = n.zip;
+  uAddr.value = n.addr;
+  uCountry.value = n.country;
+  uTown.value = n.town;
+  uSurname.value = n.surname;
+  uDesc.value = n.desc;
 })
 
 //Emit value change
@@ -92,28 +116,33 @@ const hideInputs = () => {
 
 //Update the document
 const updateProduct = () => {
-  updateDoc(doc(db, "products", uID.value), {
+  updateDoc(doc(db, "outbound", uID.value), {
     name: uName.value,
-    serial: uSerial.value,
-    lot: uLot.value,
-    quantity: uQuantity.value,
-    price: uPrice.value,
+    order: uOrder.value,
+    zip: uZip.value,
+    addr: uAddr.value,
+    country: uCountry.value,
+    town: uTown.value,
+    surname: uSurname.value,
+    desc: uDesc.value,
   });
-  uID.value = ""
-  uName.value = ""
-  uSerial.value = ""
-  uLot.value = ""
-  uQuantity.value = ""
-  uPrice.value = ""
+  uID.value = "";
+  uName.value = "";
+  uOrder.value = "";
+  uZip.value = "";
+  uAddr.value = "";
+  uCountry.value = "";
+  uTown.value = "";
+  uSurname.value = "";
+  uDesc.value = "";
   hideInputs()
 }
 
 </script>
 
 <script>
-//Export name
 export default {
-  name: "UpdateProduct",
+  name: "UpdateOutbound"
 }
 </script>
 

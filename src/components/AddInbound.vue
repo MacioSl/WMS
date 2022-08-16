@@ -1,28 +1,20 @@
 <template>
-  <form @submit.prevent="addProduct">
+  <form @submit.prevent="addInbound">
     <input
         v-model="newName"
         type="text"
         placeholder="Name"/>
     <input
-        v-model="newSerial"
+        v-model="newOrder"
         type="text"
-        placeholder="Serial"/>
+        placeholder="Order"/>
     <input
-        v-model="newLot"
+        v-model="newDesc"
         type="text"
-        placeholder="Lot"/>
-    <input
-        v-model="newQuantity"
-        type="text"
-        placeholder="Quantity"/>
-    <input
-        v-model="newPrice"
-        type="text"
-        placeholder="Price"/>
+        placeholder="Description"/>
     <button
         class="inputButton"
-        :disabled="!newSerial && !newName || !newQuantity || !newLot"
+        :disabled="!newOrder || !newName"
     >
       &#10003;
     </button>
@@ -30,7 +22,7 @@
         class="resetButton"
         type="reset"
         @click="clearInput"
-        :disabled="!newSerial && !newName && !newQuantity && !newLot && !newPrice"
+        :disabled="!newOrder && !newName && !newDesc"
     >
       &#9850;
     </button>
@@ -47,46 +39,39 @@ import {collection, addDoc} from "firebase/firestore";
 
 //Declare constants
 const newName = ref('')
-const newSerial = ref('')
-const newLot = ref('')
-const newQuantity = ref('')
-const newPrice = ref('')
+const newOrder = ref('')
+const newDesc = ref('')
+
 
 //Declare and define functions
 
 //Add document to the database
-const addProduct = () => {
-  addDoc(collection(db, "products"), {
+const addInbound = () => {
+  const date = new Date();
+  addDoc(collection(db, "inbound"), {
     name: newName.value,
-    serial: newSerial.value,
-    lot: newLot.value,
-    quantity: newQuantity.value,
-    price: newPrice.value,
+    order: newOrder.value,
+    date: date.toLocaleString("en-GB", { dateStyle: 'medium', timeStyle: 'long'}),
+    desc: newDesc.value,
   });
   newName.value = ""
-  newSerial.value = ""
-  newLot.value = ""
-  newQuantity.value = ""
-  newPrice.value = ""
+  newOrder.value = ""
+  newDesc.value = ""
 }
 
 //Clear values
 const clearInput = () => {
   newName.value = ""
-  newSerial.value = ""
-  newLot.value = ""
-  newQuantity.value = ""
-  newPrice.value = ""
+  newOrder.value = ""
+  newDesc.value = ""
 }
 
 </script>
 
 <script>
-//Export name
 export default {
-  name: "AddProduct"
+  name: "AddInbound"
 }
-
 </script>
 
 <style scoped>

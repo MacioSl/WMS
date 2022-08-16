@@ -4,20 +4,22 @@
     <SideBar />
   </div>
   <div class="main">
-    <ProductTable />
+  <ProductTable/>
   </div>
 </template>
 
 <script>
 import SideBar from "@/components/SideBar.vue";
 import HeaderBar from "@/components/Header";
-
 import ProductTable from "@/components/ProductTable";
+
+
 
 export default {
   name: 'App',
   components: {
     ProductTable,
+
     HeaderBar,
     SideBar,
   }
