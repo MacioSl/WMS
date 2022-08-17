@@ -75,6 +75,7 @@ onMounted(async () => {
       fbProd.push(product)
     });
     products.value = fbProd
+    // console.log(products.value.length)
   });
 })
 

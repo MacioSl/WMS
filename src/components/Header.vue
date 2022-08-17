@@ -32,6 +32,7 @@ header {
   z-index: 1;
 }
 .flex-container{
+  padding: 0.25em 0.5em 0em;
   opacity: 100%;
 /*display: flex;*/
 }
