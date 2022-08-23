@@ -10,11 +10,10 @@
       <div class="card">
         <div class="cardItems">
           <div>
-            <h3 class="cardTitle">{{ pack.name }}</h3>
-            <h4 class="cardSubtitle">{{ pack.order }}</h4>
+            <h3 class="cardTitle">{{ pack.order }}</h3>
+            <h4 class="cardSubtitle">{{pack.date}}</h4>
           </div>
           <div class="cardContent">
-            Date: {{pack.date}}<br>
             Description: {{pack.desc}}<br><br>
             Recipient: {{pack.surname}} {{pack.name}}<br><br>
             Address:<br>
@@ -122,7 +121,7 @@ export default {
   padding: 0.1em 0.1em .3em;
   border-radius: 2em;
   border: 2px solid #E1E1E1;
-  width: 30%;
+  width: 50%;
   overflow: auto;
 }
 
@@ -150,7 +149,7 @@ export default {
 .cardContent {
   margin: 0.5em 0;
   position: relative;
-  left: 4em;
+  left: 5em;
 }
 
 .cardButtons {
