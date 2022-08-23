@@ -3,6 +3,7 @@
       <AddOutbound />
       <UpdateOutbound v-model="uOuts" v-model:enable="Enabled"/>
   </div>
+  <br><br><br>
   <div class="container">
     <div
         v-for="pack in outs"
